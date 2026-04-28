@@ -1,3 +1,7 @@
+import os
+
+TASKS_PATH = '/home/ram/gh0st/python_work/project/task/tasks.txt'
+COMPLETED_PATH = '/home/ram/gh0st/python_work/project/task/completed_tasks.txt'
 def get_input():
     task = input("Enter Task : ").strip().lower()
     return task
@@ -54,8 +58,18 @@ def delete_item(tasks, task):
         return "No Tasks Logged"
 
 def main():
-    tasks = []
-    completed_tasks = []
+
+    if os.path.exists(TASKS_PATH):
+        with open(TASKS_PATH, 'r') as file:
+            tasks = [line.strip() for line in file]
+    else:
+        tasks = []
+
+    if os.path.exists(COMPLETED_PATH):
+        with open(COMPLETED_PATH, 'r') as file:
+            completed_tasks = [line.strip() for line in file]
+    else:
+        completed_tasks = []
     
     while True:
         print("\t\tDaily Task\n\t\t----------")      # title
@@ -96,6 +110,14 @@ def main():
             task = get_input()
             message = delete_item(tasks, task)
             display_message(message)
+    
+    with open(TASKS_PATH, 'w') as file:
+        for task in tasks:
+            file.write(task + '\n')
+    
+    with open(COMPLETED_PATH, 'w') as file:
+        for task in completed_tasks:
+            file.write(task + '\n')
 
 if __name__ == '__main__':
     main()
