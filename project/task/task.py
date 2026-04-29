@@ -2,6 +2,7 @@ import os
 
 TASKS_PATH = '/home/ram/gh0st/python_work/project/task/tasks.txt'
 COMPLETED_PATH = '/home/ram/gh0st/python_work/project/task/completed_tasks.txt'
+
 def get_input():
     task = input("Enter Task : ").strip().lower()
     return task
